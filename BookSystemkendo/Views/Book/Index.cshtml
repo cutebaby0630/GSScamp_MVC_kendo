@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="font-family:Microsoft JhengHei;">圖書維護</h2>
+
+<div class="form-horizontal">
+
+    <div class="form-group" style="margin-bottom:20px;margin-top:20px">
+        <label class="col-md-2 control-label">書名</label>
+        <div class="col-md-10">
+            <input id="book_name" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="col-md-2 control-label">圖書類別</label>
+        <div class="col-md-10">
+            <select id="DropDownClassName"></select>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="col-md-2 control-label">借閱人</label>
+        <div class="col-md-10">
+            <select id="DropDownUserName"></select>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="col-md-2 control-label">借閱狀態</label>
+        <div class="col-md-10">
+            <select id="DropDownCodeName"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-10">
+            <input type="submit" value="查詢" class="btn" style="background-color: #99b2db; color:#194284" />
+            <input type="button" value="新增" onclick="location.href = '/Book/Index'" class="btn" style="background-color: #CCDDFF; color:#194284" />
+            <input type="button" value="清除" onclick="location.href = '/Book/Index'" class="btn" style="background-color: #CCDDFF; color:#194284" />
+        </div>
+    </div>
+
+</div>
+
+
+
+
+    <script>
+        $(function () {
+            $("#DropDownClassName").kendoDropDownList({
+                dataTextField: "Text",
+                dataValueField: "Value",
+                optionLabel:"請選擇",
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "GetClassNameDropDownList",
+                            type: "post",
+                            dataType: "json"
+                        }
+                    }
+                }
+            })
+            $("#DropDownUserName").kendoDropDownList({
+                dataTextField: "Text",
+                dataValueField: "Value",
+                optionLabel:"請選擇",
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "GetUserNameDropDownList",
+                            type: "post",
+                            dataType: "json"
+                        }
+                    }
+                },
+            })
+            $("#DropDownCodeName").kendoDropDownList({
+                dataTextField: "Text",
+                dataValueField: "Value",
+                optionLabel:"請選擇",
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "GetCodeNameDropDownList",
+                            type: "post",
+                            dataType: "json"
+                        }
+                    }
+                },
+            })
+        });
+    </script>
