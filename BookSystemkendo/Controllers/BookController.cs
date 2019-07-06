@@ -9,7 +9,7 @@ namespace BookSystemkendo.Controllers
     public class BookController : Controller
     {
         readonly Models.CodeService codeService = new Models.CodeService();
-        
+        readonly Models.BookService bookService = new Models.BookService();
         // GET: Book
         public ActionResult Index()
         {
@@ -29,6 +29,24 @@ namespace BookSystemkendo.Controllers
         public JsonResult GetCodeNameDropDownList()
         {
             return Json(this.codeService.GetCodeName());
+        }
+
+        public JsonResult GetGridData(Models.BookSearchArg arg)
+        {
+            return Json(this.bookService.GetBookByCondtioin(arg));
+        }
+        [HttpPost()]
+        public JsonResult DeleteBook(int BookID)
+        {
+            try
+            {
+                bookService.DeleteBook(BookID);
+                return this.Json(true);
+            }
+            catch (Exception ex)
+            {
+                return this.Json(false);
+            }
         }
     }
 }

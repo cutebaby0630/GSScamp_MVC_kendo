@@ -182,6 +182,7 @@
     </Compile>
     <Compile Include="Models\BookData.cs" />
     <Compile Include="Models\BookSearchArg.cs" />
+    <Compile Include="Models\BookService.cs" />
     <Compile Include="Models\CodeService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
