@@ -75,7 +75,11 @@ namespace BookSystemkendo.Controllers
             }
 
         }
-
+        [HttpPost]
+        public JsonResult GetBookData(int BookID)
+        {
+            return Json(this.bookService.GetBookData(BookID));
+        }
         public JsonResult LendBookRecord(int BookID)
         {
             return Json(this.bookService.GetBookLendRecord(BookID));

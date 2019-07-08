@@ -50,7 +50,59 @@
         <div id="book_record_grid"></div>
     </div>
 
+        <div class="uk-card  uk-text-left" id="update_window" style="display:none">
+            <div class="form-group" style="margin-bottom:20px;margin-top:20px">
+                <label class="control-label col-md-2 required">書名</label>
+                <div class="col-md-10">
+                    <input id="book_name" name="BookName" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:20px">
+                <label class="control-label col-md-2 required">作者</label>
+                <div class="col-md-10">
+                    <input id="book_author" name="Author" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:20px">
+                <label class="control-label col-md-2 required">出版商</label>
+                <div class="col-md-10">
+                    <input id="book_publisher" name="Publisher" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:20px">
+                <label class="control-label col-md-2 required">內容簡介</label>
+                <div class="col-md-10">
+                    <textarea id="book_note" name="Note" onkeyup="WordsDeal();" cols="80" rows="8" ></textarea>
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:20px">
+                <label class="control-label col-md-2 required">購書日期</label>
+                <div class="col-md-10">
+                    <input id="bought_date" type="date" />
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:20px">
+                <label class="col-md-2 control-label">圖書類別</label>
+                <div class="col-md-10">
+                    <select id="dropdown_classname" name="classname" ></select>
+                </div>
+            </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn" value="存檔" style="background-color: #99b2db; color:#194284" />
+                <input type="button" class="btn" id="delete" value="刪除" href="#" style="background-color: #99b2db; color:#194284">
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 
 
 
@@ -126,7 +178,7 @@
                     { field: "CodeName", title: "借閱狀態", width: "70px" },
                     { field: "UserName", title: "借閱人", width: "60px" },
                     { command: { text: "借閱紀錄", click: booklendrecord }, title: " ", width: "50px" },
-                    { command: { text: "修改" }, title: " ", width: "50px" },
+                    { command: { text: "修改", click: updatabook}, title: " ", width: "50px" },
                     { command: { text: "刪除", click: deleteBook }, title: " ", width: "50px" }
                 ],
                 dataSource: {
@@ -171,7 +223,6 @@
     function booklendrecord(e) {
         e.preventDefault();
         var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID;
-        console.log(bookId)
         $("#book_record_grid").kendoGrid({
             dataSource: {
                 transport: {
@@ -198,6 +249,20 @@
             ]
         });
         $('#record_window').data("kendoWindow").center().open();
+        }
+
+    //修改畫面
+    function updatebook(e) {
+        e.preventDefault;
+        var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID;
+        $.ajax({
+               type: "POST",
+                url: "GetBookData",
+                data: create_data,
+                dataType: "json",
+
+        });
+
     }
 </script>
 
