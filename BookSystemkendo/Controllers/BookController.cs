@@ -15,6 +15,7 @@ namespace BookSystemkendo.Controllers
         {
             return View();
         }
+        // 下拉選單
         [HttpPost]
         public JsonResult GetClassNameDropDownList()
         {
@@ -31,11 +32,15 @@ namespace BookSystemkendo.Controllers
             return Json(this.codeService.GetCodeName());
         }
 
+        //kendoGrid
+        [HttpPost]
         public JsonResult GetGridData(Models.BookSearchArg arg)
         {
             return Json(this.bookService.GetBookByCondtioin(arg));
         }
-        [HttpPost()]
+
+        //刪除資料
+        [HttpPost]
         public JsonResult DeleteBook(int BookID)
         {
             try
@@ -47,6 +52,16 @@ namespace BookSystemkendo.Controllers
             {
                 return this.Json(false);
             }
+        }
+
+        //新增圖書
+        public ActionResult InsertBook()
+        {
+            return View();
+        }
+        public ActionResult UpdateBook()
+        {
+            return View();
         }
     }
 }

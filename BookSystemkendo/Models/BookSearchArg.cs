@@ -14,10 +14,8 @@ namespace BookSystemkendo.Models
         [DisplayName("借閱人")]
         public string UserName { get; set; }
         [DisplayName("圖書類別")]
-        public string BookClassName { get; set; }
+        public string ClassNameID { get; set; }
         [DisplayName("借閱狀態")]
-        public string CodeName { get; set; }
-        [DisplayName("借閱狀態ID")]
         public string CodeID { get; set; }
     }
 }

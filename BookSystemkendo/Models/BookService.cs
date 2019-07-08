@@ -44,9 +44,9 @@ namespace BookSystemkendo.Models
 	                            INNER JOIN BOOK_CODE AS bc
 		                            ON (bd.BOOK_STATUS=bc.CODE_ID) AND bc.CODE_TYPE='BOOK_STATUS' 
                            WHERE (UPPER(bd.BOOK_NAME)LIKE UPPER('%'+@BookName+'%') OR @BookName='') AND
-	                             (bcl.BOOK_CLASS_ID= @BookClassName OR @BookClassName='') AND
+	                             (bcl.BOOK_CLASS_ID= @BookClassID OR @BookClassID='') AND
 	                             (mm.USER_ID=@UserName OR @UserName='') AND
-	                             (bc.CODE_ID= @CodeName OR @CodeName='')
+	                             (bc.CODE_ID= @CodeID OR @CodeID='')
                             ORDER BY BookBoughtDate DESC";
 
             using (SqlConnection conn = new SqlConnection(this.GetDBConnectionString()))
@@ -54,9 +54,9 @@ namespace BookSystemkendo.Models
                 conn.Open();
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add(new SqlParameter("@BookName", arg.BookName == null ? string.Empty : arg.BookName));
-                cmd.Parameters.Add(new SqlParameter("@BookClassName", arg.BookClassName == null ? string.Empty : arg.BookClassName));
+                cmd.Parameters.Add(new SqlParameter("@BookClassID", arg.ClassNameID == null ? string.Empty : arg.ClassNameID));
                 cmd.Parameters.Add(new SqlParameter("@UserName", arg.UserName == null ? string.Empty : arg.UserName));
-                cmd.Parameters.Add(new SqlParameter("@CodeName", arg.CodeName == null ? string.Empty : arg.CodeName));
+                cmd.Parameters.Add(new SqlParameter("@CodeID", arg.CodeID == null ? string.Empty : arg.CodeID));
                 SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
                 sqlAdapter.Fill(dt);
                 conn.Close();

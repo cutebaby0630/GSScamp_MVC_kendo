@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "InsertBook";
+}
+
+<h2>InsertBook</h2>
+
+<div class="form-horizontal">
+
+    <div class="form-group" style="margin-bottom:20px;margin-top:20px">
+        <label class="control-label col-md-2 required">書名</label>
+        <div class="col-md-10">
+            <input id="book_name" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="control-label col-md-2 required">作者</label>
+        <div class="col-md-10">
+            <input id="book_author" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="control-label col-md-2 required">出版商</label>
+        <div class="col-md-10">
+            <input id="book_publisher" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="control-label col-md-2 required">內容簡介</label>
+        <div class="col-md-10">
+            <textarea id="book_note" onkeyup="WordsDeal();" cols="80" rows="8"></textarea>
+        </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="control-label col-md-2 required">購書日期</label>
+        <div class="col-md-10">
+            <input id="bought_date" type="date" />
+        </div>
+    </div>
+    <div class="form-group" style="margin-bottom:20px">
+        <label class="col-md-2 control-label">圖書類別</label>
+        <div class="col-md-10">
+            <select id="dropdown_classname"></select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="存檔" class="btn btn_create" style="background-color: #99b2db; color:#194284" />
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+        $("#dropdown_classname").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetClassNameDropDownList",
+                        type: "post",
+                        dataType: "json"
+                    }
+                }
+            }
+        });
+    });
+    $(".btn_create").click(function () {
+        var create_data = {
+
+        }
+    })
+    //textarea 字數限制
+    function WordsDeal() {
+        var curLength = $("#book_note").val().length;
+        if (curLength > 1000) {
+            var num = $("#book_note").val().substr(0, 1000);
+            $("#book_note").val(num);
+            alert("超過字數限制(1000字)，多出的字將被移除！");
+        }
+    }
+</script>
+
+<div>
+    <input type="button" value="返回" onclick="location.href='/Book/Index'" class="btn" style="background-color: #99b2db; color:#194284" />
+</div>
