@@ -59,6 +59,22 @@ namespace BookSystemkendo.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public JsonResult InsertBook(Models.BookData book)
+        {
+            try
+            {
+                bookService.InsertBook(book);
+                return this.Json(true);
+            }
+            catch (Exception ex)
+            {
+                return this.Json(false);
+            }
+
+        }
+
         public ActionResult UpdateBook()
         {
             return View();

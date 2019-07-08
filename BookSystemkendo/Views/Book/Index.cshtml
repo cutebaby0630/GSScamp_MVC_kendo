@@ -103,34 +103,34 @@
             $(".btn_search").click(function () {
                 var search_data = {
                     "BookName": $("#book_name").val(),
-                    "ClassNameID": $("#dropdown_classname").val(),
-                    "UserName": $("#dropdown_username").val(),
-                    "CodeID": $("#dropdown_codename").val()
+                    "ClassNameID": $("#dropdown_classname").data("kendoDropDownList").value(),
+                    "UserName": $("#dropdown_username").data("kendoDropDownList").value(),
+                    "CodeID": $("#dropdown_codename").data("kendoDropDownList").value()
                 };
-                $("#search_grid").kendoGrid({
-            height: 500,
-            columns: [
-                { field: "BookClassName", title: "圖書類別", width:"60px"},
-                { field: "BookName", title: "書名", width:"210px"},
-                { field: "BookBoughtDate", title: "購書日期", width:"50px"},
-                { field: "CodeName", title: "借閱狀態", width:"70px"},
-                { field: "UserName", title: "借閱人", width: "60px" },
-                { command: { text: "借閱紀錄"}, title: " ", width: "50px" },
-                { command: { text: "修改" }, title: " ", width: "50px" },
-                { command: { text: "刪除", click: deleteBook }, title: " ", width: "50px"}
-             ],
-            dataSource: {
-                transport: {
-                    read: {
-                        url: "GetGridData",
-                        type: "post",
-                        dataType: "json",
-                        data: search_data
+            $("#search_grid").kendoGrid({
+                height: 500,
+                columns: [
+                    { field: "BookClassName", title: "圖書類別", width:"60px"},
+                    { field: "BookName", title: "書名", width:"210px"},
+                    { field: "BookBoughtDate", title: "購書日期", width:"50px"},
+                    { field: "CodeName", title: "借閱狀態", width:"70px"},
+                    { field: "UserName", title: "借閱人", width: "60px" },
+                    { command: { text: "借閱紀錄", class: "btn_record"}, title: " ", width: "50px" },
+                    { command: { text: "修改",class: "btn_edit"  }, title: " ", width: "50px"},
+                    { command: { text: "刪除", click: deleteBook,class: "btn_delete"}, title: " ", width: "50px"}
+                ],
+                dataSource: {
+                    transport: {
+                        read: {
+                            url: "GetGridData",
+                            type: "post",
+                            dataType: "json",
+                            data: search_data
+                        }
                     }
                 }
-            }
-        })
-            });
+            })
+                });
         });
 
     // 刪除書本
@@ -157,6 +157,6 @@ function deleteBook(e) {
         });
     }
 }
-          
-      
     </script>
+
+
