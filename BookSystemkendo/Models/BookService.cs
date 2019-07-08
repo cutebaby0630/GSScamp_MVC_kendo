@@ -376,8 +376,8 @@ namespace BookSystemkendo.Models
                 {
                     BookID = (int)row["BookID"],
                     BookName = row["BookName"].ToString(),
-                    UserName = row["UserName"].ToString(),
                     UserID = row["UserID"].ToString(),
+                    UserName = row["UserName"].ToString(),
                     LendDate = row["LendDate"].ToString()
                 });
             }

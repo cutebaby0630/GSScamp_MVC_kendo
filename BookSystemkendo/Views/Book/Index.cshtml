@@ -39,85 +39,95 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-10">
-            <input type="button" value="查詢" class="btn btn_search"  style="background-color: #99b2db; color:#194284" />
+            <input type="button" value="查詢" class="btn btn_search" style="background-color: #99b2db; color:#194284" />
             <input type="button" value="新增" onclick="location.href = '/Book/InsertBook'" class="btn" style="background-color: #CCDDFF; color:#194284" />
             <input type="button" value="清除" onclick="location.href = '/Book/Index'" class="btn" style="background-color: #CCDDFF; color:#194284" />
         </div>
     </div>
 
     <div id="search_grid"></div>
+    <div class="uk-card  uk-text-left" id="record_window" style="display:none">
+        <div id="book_record_grid"></div>
+    </div>
 
 </div>
 
 
 
 
-    <script>
+<script>
 
     //kendoDropDownList
-        $(function () {
-            $("#dropdown_classname").kendoDropDownList({
-                dataTextField: "Text",
-                dataValueField: "Value",
-                optionLabel:"請選擇",
-                dataSource: {
-                    transport: {
-                        read: {
-                            url: "GetClassNameDropDownList",
-                            type: "post",
-                            dataType: "json"
-                        }
+    $(function () {
+        $("#record_window").kendoWindow({
+            title: "借閱紀錄",
+            width: "50%",
+            visible: false,
+            modal: true,
+            action: ["Close"]
+        });
+        $("#dropdown_classname").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetClassNameDropDownList",
+                        type: "post",
+                        dataType: "json"
                     }
                 }
-            })
-            $("#dropdown_username").kendoDropDownList({
-                dataTextField: "Text",
-                dataValueField: "Value",
-                optionLabel:"請選擇",
-                dataSource: {
-                    transport: {
-                        read: {
-                            url: "GetUserNameDropDownList",
-                            type: "post",
-                            dataType: "json"
-                        }
+            }
+        })
+        $("#dropdown_username").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetUserNameDropDownList",
+                        type: "post",
+                        dataType: "json"
                     }
                 }
-            })
-            $("#dropdown_codename").kendoDropDownList({
-                dataTextField: "Text",
-                dataValueField: "Value",
-                optionLabel:"請選擇",
-                dataSource: {
-                    transport: {
-                        read: {
-                            url: "GetCodeNameDropDownList",
-                            type: "post",
-                            dataType: "json"
-                        }
+            }
+        })
+        $("#dropdown_codename").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetCodeNameDropDownList",
+                        type: "post",
+                        dataType: "json"
                     }
                 }
-            })
+            }
+        })
 
-    // kendoGrid
-            $(".btn_search").click(function () {
-                var search_data = {
-                    "BookName": $("#book_name").val(),
-                    "ClassNameID": $("#dropdown_classname").data("kendoDropDownList").value(),
-                    "UserName": $("#dropdown_username").data("kendoDropDownList").value(),
-                    "CodeID": $("#dropdown_codename").data("kendoDropDownList").value()
-                };
+        // kendoGrid
+        $(".btn_search").click(function () {
+            var search_data = {
+                "BookName": $("#book_name").val(),
+                "ClassNameID": $("#dropdown_classname").data("kendoDropDownList").value(),
+                "UserName": $("#dropdown_username").data("kendoDropDownList").value(),
+                "CodeID": $("#dropdown_codename").data("kendoDropDownList").value()
+            };
             $("#search_grid").kendoGrid({
                 height: 500,
                 columns: [
-                    { field: "BookClassName", title: "圖書類別", width:"60px"},
-                    { field: "BookName", title: "書名", width:"210px"},
-                    { field: "BookBoughtDate", title: "購書日期", width:"50px"},
-                    { field: "CodeName", title: "借閱狀態", width:"70px"},
+                    { field: "BookClassName", title: "圖書類別", width: "60px" },
+                    { field: "BookName", title: "書名", width: "210px" },
+                    { field: "BookBoughtDate", title: "購書日期", width: "50px" },
+                    { field: "CodeName", title: "借閱狀態", width: "70px" },
                     { field: "UserName", title: "借閱人", width: "60px" },
-                    { command: { text: "借閱紀錄", class: "btn_record"}, title: " ", width: "50px" },
-                    { command: { text: "修改",class: "btn_edit"  }, title: " ", width: "50px"},
-                    { command: { text: "刪除", click: deleteBook,class: "btn_delete"}, title: " ", width: "50px"}
+                    { command: { text: "借閱紀錄", click: booklendrecord }, title: " ", width: "50px" },
+                    { command: { text: "修改" }, title: " ", width: "50px" },
+                    { command: { text: "刪除", click: deleteBook }, title: " ", width: "50px" }
                 ],
                 dataSource: {
                     transport: {
@@ -130,33 +140,65 @@
                     }
                 }
             })
-                });
         });
+    });
 
     // 刪除書本
-function deleteBook(e) {
-    var Check = confirm('確定是否刪除這筆紀錄?');
-    if (Check == true) {
-        e.preventDefault();
-        var delete_data = this.dataItem($(e.currentTarget).closest("tr")).BookID
-        $.ajax({
-            type: "POST",
-            url: "DeleteBook",
-            data: { "BookID": delete_data },
-            dataType: "json",
-            success: function (response) {
-                if (response == true) {
-                    $(delete_data).remove();
-                    alert("圖書已刪除");
-                     $("#search_grid").data("kendoGrid").dataSource.read();
+    function deleteBook(e) {
+        var Check = confirm('確定是否刪除這筆紀錄?');
+        if (Check == true) {
+            e.preventDefault();
+            var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID
+            $.ajax({
+                type: "POST",
+                url: "DeleteBook",
+                data: { "BookID": bookId },
+                dataType: "json",
+                success: function (response) {
+                    if (response == true) {
+                        $(bookId).remove();
+                        alert("圖書已刪除");
+                        $("#search_grid").data("kendoGrid").dataSource.read();
+                    }
+                },
+                error: function (error) {
+                    alert("系統發生錯誤");
                 }
-            },
-            error: function (error) {
-                alert("系統發生錯誤");
-            }
-        });
+            });
+        }
     }
-}
-    </script>
+    //借閱紀錄
+    function booklendrecord(e) {
+        e.preventDefault();
+        var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID;
+        console.log(bookId)
+        $("#book_record_grid").kendoGrid({
+            dataSource: {
+                transport: {
+                    read: {
+                        method: "post",
+                        url: "LendBookRecord",
+                        dataType: "json",
+                        data: { "BookID": bookId }
+                    }
+                },
+                pageSize: 20,
+            },
+            height: 300,
+            sortable: true,
+            pageable: {
+                input: true,
+                numeric: false
+            },
+            columns: [
+                { field: "BookName", title: "書名", width: "30%" },
+                { field: "UserID", title: "借閱人員編號", width: "20%" },
+                { field: "UserName", title: "借閱人", width: "25%" },
+                { field: "LendDate", title: "借閱日期", width: "25%" }
+            ]
+        });
+        $('#record_window').data("kendoWindow").center().open();
+    }
+</script>
 
 

@@ -10,28 +10,35 @@
         <div class="form-group" style="margin-bottom:20px;margin-top:20px">
             <label class="control-label col-md-2 required">書名</label>
             <div class="col-md-10">
-                <input id="book_name" class="form-control" />
+                <input id="book_name" name="BookName" type="text" class="form-control" required validationMessage="請輸入書名" />
+                <span class="k-invalid-msg" data-for="BookName"></span>
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom:20px">
             <label class="control-label col-md-2 required">作者</label>
             <div class="col-md-10">
-                <input id="book_author" class="form-control" />
+                <input id="book_author" name="Author" type="text" class="form-control" required validationMessage="請輸入作者" />
+                <span class="k-invalid-msg" data-for="Author"></span>
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom:20px">
             <label class="control-label col-md-2 required">出版商</label>
             <div class="col-md-10">
-                <input id="book_publisher" class="form-control" />
+                <input id="book_publisher" name="Publisher" class="form-control" required validationMessage="請輸入出版商" />
+                <span class="k-invalid-msg" data-for="Publisher"></span>
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom:20px">
             <label class="control-label col-md-2 required">內容簡介</label>
             <div class="col-md-10">
-                <textarea id="book_note" onkeyup="WordsDeal();" cols="80" rows="8"></textarea>
+                <textarea id="book_note" name="Note" onkeyup="WordsDeal();" cols="80" rows="8" required validationMessage="請輸入內容簡介"></textarea>
+                <div>
+                    <span class="k-invalid-msg" data-for="Note"></span>
+                </div>
+
             </div>
         </div>
 
@@ -41,27 +48,31 @@
                 <input id="bought_date" type="date" />
             </div>
         </div>
+
         <div class="form-group" style="margin-bottom:20px">
             <label class="col-md-2 control-label">圖書類別</label>
             <div class="col-md-10">
-                <select id="dropdown_classname"></select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="button" value="存檔" class="btn btn_create" style="background-color: #99b2db; color:#194284" />
+                <select id="dropdown_classname" name="classname" required validationMessage="請選擇圖書類別"></select>
+                <div>
+                    <span class="k-invalid-msg" data-for="classname"></span>
+                </div>
             </div>
         </div>
     </form>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" value="存檔" class="btn btn_create" style="background-color: #99b2db; color:#194284" />
+        </div>
+    </div>
 </div>
 
 <script>
     $(function () {
-    //kendoDatePicker
+        //kendoDatePicker
+        $("#addBookForm").kendoValidator();
         $("#bought_date").kendoDatePicker({
-        value: new Date(),
-        format: "yyyy/MM/dd"
+            value: new Date(),
+            format: "yyyy/MM/dd"
         });
 
         //kendoDropDownList
@@ -79,9 +90,14 @@
                 }
             }
         });
+
     });
+
+    //存綁按鍵
     $(".btn_create").click(function (e) {
-        var create_data = {
+        var validator = $("#addBookForm").kendoValidator().data("kendoValidator");
+        if (validator.validate()) {
+            var create_data = {
                 "BookName": $("#book_name").val(),
                 "BookAuthor": $("#book_author").val(),
                 "BookPublisher": $("#book_publisher").val(),
@@ -89,28 +105,25 @@
                 "BookBoughtDate": kendo.toString($("#bought_date").data("kendoDatePicker").value(), "yyyy-MM-dd"),
                 "BookClassID": $("#dropdown_classname").data("kendoDropDownList").value(),
             }
-        var Check = confirm('確定是否新增這筆紀錄?');
 
-        if (Check == true) {
-        e.preventDefault();
-        $.ajax({
-            type: "POST",
-            url: "InsertBook",
-            data: create_data,
-            dataType: "json",
-            success: function (response) {
-                if (response == true) {
-                    $(create_data).add();
-                    alert("圖書已新增");
-                    location.href = '/Book/InsertBook'
+            $.ajax({
+                type: "POST",
+                url: "InsertBook",
+                data: create_data,
+                dataType: "json",
+                success: function (response) {
+                    if (response == true) {
+                        $(create_data).add();
+                        alert("圖書已新增");
+                        location.href = '/Book/InsertBook'
+                    }
+                },
+                error: function (error) {
+                    alert("系統發生錯誤");
                 }
-            },
-            error: function (error) {
-                alert("系統發生錯誤");
-            }
-        });
-    }
- })
+            });
+        }
+    })
 
     //textarea 字數限制
     function WordsDeal() {

@@ -15,6 +15,7 @@ namespace BookSystemkendo.Controllers
         {
             return View();
         }
+
         // 下拉選單
         [HttpPost]
         public JsonResult GetClassNameDropDownList()
@@ -75,9 +76,9 @@ namespace BookSystemkendo.Controllers
 
         }
 
-        public ActionResult UpdateBook()
+        public JsonResult LendBookRecord(int BookID)
         {
-            return View();
+            return Json(this.bookService.GetBookLendRecord(BookID));
         }
     }
 }
