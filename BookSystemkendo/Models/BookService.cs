@@ -301,7 +301,7 @@ namespace BookSystemkendo.Models
         {
             try
             {
-                string sql = @"DELETE FROM BOOK_DATA WHERE BOOK_ID = @BookID";
+                string sql = @"DELETE FROM BOOK_DATA WHERE BOOK_ID = @BookID AND BOOK_STATUS ='A'";
                 using (SqlConnection conn = new SqlConnection(this.GetDBConnectionString()))
                 {
                     conn.Open();

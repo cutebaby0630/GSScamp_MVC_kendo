@@ -212,22 +212,28 @@
         if (Check == true) {
             e.preventDefault();
             var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID
-            $.ajax({
-                type: "POST",
-                url: "DeleteBook",
-                data: { "BookID": bookId },
-                dataType: "json",
-                success: function (response) {
-                    if (response == true) {
-                        alert("圖書已刪除");
-                        $("#search_grid").data("kendoGrid").dataSource.read();
-                        
+            var codeName = this.dataItem($(e.currentTarget).closest("tr")).CodeName
+            if (codeName == "已借出" || codeName == "已借出(未領)") {
+                alert("此書已借出");
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: "DeleteBook",
+                    data: { "BookID": bookId },
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == true) {
+                            alert("圖書已刪除");
+                            $("#search_grid").data("kendoGrid").dataSource.read();
+
+                        }
+                    },
+                    error: function (error) {
+                        alert("系統發生錯誤");
                     }
-                },
-                error: function (error) {
-                    alert("系統發生錯誤");
-                }
-            });
+                });
+            }
+
         }
     }
 
