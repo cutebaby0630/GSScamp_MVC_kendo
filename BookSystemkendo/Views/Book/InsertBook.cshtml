@@ -93,7 +93,7 @@
 
     });
 
-    //存綁按鍵
+    //新增按鍵
     $(".btn_create").click(function (e) {
         var validator = $("#addBookForm").kendoValidator().data("kendoValidator");
         if (validator.validate()) {
@@ -113,9 +113,12 @@
                 dataType: "json",
                 success: function (response) {
                     if (response == true) {
-                        $(create_data).add();
                         alert("圖書已新增");
-                        location.href = '/Book/InsertBook'
+                        $("#book_name").val("");
+                        $("#book_author").val("");
+                        $("#book_publisher").val("");
+                        $("#book_note").val("");
+                        $("#dropdown_classname").data("kendoDropDownList").value("");
                     }
                 },
                 error: function (error) {

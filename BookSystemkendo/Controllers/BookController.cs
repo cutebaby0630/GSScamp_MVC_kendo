@@ -47,11 +47,11 @@ namespace BookSystemkendo.Controllers
             try
             {
                 bookService.DeleteBook(BookID);
-                return this.Json(true);
+                return Json(true);
             }
             catch (Exception ex)
             {
-                return this.Json(false);
+                return Json(false);
             }
         }
 

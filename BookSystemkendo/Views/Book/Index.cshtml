@@ -6,7 +6,6 @@
 <h2 style="font-family:Microsoft JhengHei;">圖書維護</h2>
 
 <div class="form-horizontal">
-
     <div class="form-group" style="margin-bottom:20px;margin-top:20px">
         <label class="col-md-2 control-label">書名</label>
         <div class="col-md-10">
@@ -49,49 +48,66 @@
     <div class="uk-card  uk-text-left" id="record_window" style="display:none">
         <div id="book_record_grid"></div>
     </div>
+</div>
 
-        <div class="uk-card  uk-text-left" id="update_window" style="display:none">
-            <div class="form-group" style="margin-bottom:20px;margin-top:20px">
-                <label class="control-label col-md-2 required">書名</label>
-                <div class="col-md-10">
-                    <input id="book_name" name="BookName" type="text" class="form-control" />
-                </div>
+<div class="form-horizontal">
+    <div class="uk-card  uk-text-left" id="update_window" style="display:none">
+        <div class="form-group" style="margin-bottom:20px;margin-top:20px">
+            <label class="control-label col-md-2 required">書名</label>
+            <div class="col-md-10">
+                <input id="ed_book_name" type="text" class="form-control" />
             </div>
+        </div>
 
-            <div class="form-group" style="margin-bottom:20px">
-                <label class="control-label col-md-2 required">作者</label>
-                <div class="col-md-10">
-                    <input id="book_author" name="Author" type="text" class="form-control" />
-                </div>
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="control-label col-md-2 required">作者</label>
+            <div class="col-md-10">
+                <input id="ed_book_author" type="text" class="form-control" />
             </div>
+        </div>
 
-            <div class="form-group" style="margin-bottom:20px">
-                <label class="control-label col-md-2 required">出版商</label>
-                <div class="col-md-10">
-                    <input id="book_publisher" name="Publisher" class="form-control" />
-                </div>
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="control-label col-md-2 required">出版商</label>
+            <div class="col-md-10">
+                <input id="ed_book_publisher" class="form-control" />
             </div>
+        </div>
 
-            <div class="form-group" style="margin-bottom:20px">
-                <label class="control-label col-md-2 required">內容簡介</label>
-                <div class="col-md-10">
-                    <textarea id="book_note" name="Note" onkeyup="WordsDeal();" cols="80" rows="8" ></textarea>
-                </div>
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="control-label col-md-2 required">內容簡介</label>
+            <div class="col-md-10">
+                <textarea id="ed_book_note" onkeyup="WordsDeal();" cols="80" rows="8"></textarea>
             </div>
+        </div>
 
-            <div class="form-group" style="margin-bottom:20px">
-                <label class="control-label col-md-2 required">購書日期</label>
-                <div class="col-md-10">
-                    <input id="bought_date" type="date" />
-                </div>
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="control-label col-md-2 required">購書日期</label>
+            <div class="col-md-10">
+                <input id="ed_bought_date" type="date" />
             </div>
+        </div>
 
-            <div class="form-group" style="margin-bottom:20px">
-                <label class="col-md-2 control-label">圖書類別</label>
-                <div class="col-md-10">
-                    <select id="dropdown_classname" name="classname" ></select>
-                </div>
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="col-md-2 control-label">圖書類別</label>
+            <div class="col-md-10">
+                <select id="ed_dropdown_classname"></select>
             </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="col-md-2 control-label">借閱狀態</label>
+            <div class="col-md-10">
+                <select id="ed_dropdown_codename"></select>
+            </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:20px">
+            <label class="col-md-2 control-label">借閱人</label>
+            <div class="col-md-10">
+                <select id="ed_dropdown_username"></select>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn" value="存檔" style="background-color: #99b2db; color:#194284" />
@@ -101,13 +117,7 @@
     </div>
 </div>
 
-
-
-
-
-
-
-<script>
+    <script>
 
     //kendoDropDownList
     $(function () {
@@ -172,14 +182,14 @@
             $("#search_grid").kendoGrid({
                 height: 500,
                 columns: [
-                    { field: "BookClassName", title: "圖書類別", width: "60px" },
-                    { field: "BookName", title: "書名", width: "210px" },
-                    { field: "BookBoughtDate", title: "購書日期", width: "50px" },
-                    { field: "CodeName", title: "借閱狀態", width: "70px" },
-                    { field: "UserName", title: "借閱人", width: "60px" },
-                    { command: { text: "借閱紀錄", click: booklendrecord }, title: " ", width: "50px" },
-                    { command: { text: "修改", click: updatabook}, title: " ", width: "50px" },
-                    { command: { text: "刪除", click: deleteBook }, title: " ", width: "50px" }
+                    { field: "BookClassName", title: "圖書類別", width: "10%" },
+                    { field: "BookName", title: "書名", width: "30%" },
+                    { field: "BookBoughtDate", title: "購書日期", width: "10%" },
+                    { field: "CodeName", title: "借閱狀態", width: "8%" },
+                    { field: "UserName", title: "借閱人", width: "12%" },
+                    { command: { text: "借閱紀錄", click: booklendrecord }, title: " ", width: "8%" },
+                    { command: { text: "修改", click: updatebook }, title: " ", width: "8%" },
+                    { command: { text: "刪除", click: deleteBook }, title: " ", width: "8%" }
                 ],
                 dataSource: {
                     transport: {
@@ -192,6 +202,7 @@
                     }
                 }
             })
+           // $("#search_grid").data("kendoGrid").destroy();
         });
     });
 
@@ -208,9 +219,9 @@
                 dataType: "json",
                 success: function (response) {
                     if (response == true) {
-                        $(bookId).remove();
                         alert("圖書已刪除");
                         $("#search_grid").data("kendoGrid").dataSource.read();
+                        
                     }
                 },
                 error: function (error) {
@@ -219,6 +230,8 @@
             });
         }
     }
+
+
     //借閱紀錄
     function booklendrecord(e) {
         e.preventDefault();
@@ -235,12 +248,7 @@
                 },
                 pageSize: 20,
             },
-            height: 300,
-            sortable: true,
-            pageable: {
-                input: true,
-                numeric: false
-            },
+            height: 350,
             columns: [
                 { field: "BookName", title: "書名", width: "30%" },
                 { field: "UserID", title: "借閱人員編號", width: "20%" },
@@ -249,21 +257,88 @@
             ]
         });
         $('#record_window').data("kendoWindow").center().open();
-        }
+    }
 
-    //修改畫面
+    //修改data
     function updatebook(e) {
+        $("#update_window").kendoWindow({
+            title: "資料修改",
+            width: "50%",
+            visible: false,
+            modal: true,
+            action: ["Close"]
+        });
+        $("#ed_dropdown_username").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetUserNameDropDownList",
+                        type: "post",
+                        dataType: "json"
+                    }
+                }
+            }
+        })
+        $("#ed_dropdown_codename").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetCodeNameDropDownList",
+                        type: "post",
+                        dataType: "json"
+                    }
+                }
+            }
+        })
+        $("#ed_dropdown_classname").kendoDropDownList({
+            dataTextField: "Text",
+            dataValueField: "Value",
+            optionLabel: "請選擇",
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "GetClassNameDropDownList",
+                        type: "post",
+                        dataType: "json"
+                    }
+                }
+            }
+        })
+        $("#ed_bought_date").kendoDatePicker({
+            value: new Date(),
+            format: "yyyy/MM/dd"
+        });
         e.preventDefault;
         var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID;
         $.ajax({
-               type: "POST",
-                url: "GetBookData",
-                data: create_data,
-                dataType: "json",
-
-        });
-
+            type: "POST",
+            url: "GetBookData",
+            data: { "BookID": bookId },
+            dataType: "json",
+            success: function (data) {
+                $("#ed_book_name").val(data.BookName);
+                $("#ed_book_author").val(data.BookAuthor);
+                $("#ed_book_publisher").val(data.BookPublisher);
+                $("#ed_book_note").val(data.BookNote);
+                $("#ed_bought_date").data("kendoDatePicker").value(data.BookBoughtDate);
+                $("#ed_dropdown_classname").data("kendoDropDownList").value(data.BookClassID);
+                $("#ed_dropdown_codename").data("kendoDropDownList").value(data.CodeID);
+                $("#ed_dropdown_username").data("kendoDropDownList").value(data.UserID);
+            }
+        /*var originCode = data.CodeId;
+        if (originCode == "已借出" || originCode == "已借出(未領)" || originCode == "不可借出") {
+            $("#ed_dropdown_username").kendoDropDownList({
+                enable: false
+            });*/
+        })
+        $("#update_window").data("kendoWindow").center().open();
     }
-</script>
+    </script>
 
 

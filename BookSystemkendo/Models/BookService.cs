@@ -118,9 +118,9 @@ namespace BookSystemkendo.Models
             string sql = @"SELECT bd.BOOK_ID AS BookID,
                                   bd.BOOK_NAME AS BookName,
                                   CONVERT(char(10),bd.BOOK_BOUGHT_DATE,126) AS BookBoughtDate,
-                                  bd.BOOK_CLASS_ID AS BookClassName,
-                                  bd.BOOK_STATUS AS CodeName,
-                                  bd.BOOK_KEEPER AS UserName,
+                                  bd.BOOK_CLASS_ID AS BookClassID,
+                                  bd.BOOK_STATUS AS CodeID,
+                                  bd.BOOK_KEEPER AS UserID,
                                   bd.BOOK_AUTHOR AS BookAuthor,
                                   bd.BOOK_PUBLISHER AS BookPublisher,
                                   bd.BOOK_NOTE AS BookNote
@@ -275,9 +275,9 @@ namespace BookSystemkendo.Models
                     BookPublisher = row["BookPublisher"].ToString(),
                     BookNote = row["BookNote"].ToString(),
                     BookBoughtDate = row["BookBoughtDate"].ToString(),
-                    BookClassName = row["BookClassName"].ToString(),
-                    UserName = row["UserName"].ToString(),
-                    CodeName = row["CodeName"].ToString(),
+                    BookClassID = row["BookClassID"].ToString(),
+                    UserID = row["UserID"].ToString(),
+                    CodeID = row["CodeID"].ToString(),
                 });
             }
             return resultModify;
