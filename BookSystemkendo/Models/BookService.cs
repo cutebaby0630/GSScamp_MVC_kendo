@@ -112,9 +112,9 @@ namespace BookSystemkendo.Models
         /// 修改圖書(抓取預設值)
         /// </summary>
         /// <returns></returns>
-        public List<Models.BookData> GetBookData(int BookID)
+        public Models.BookData GetBookData(int BookID)
         {
-            DataTable dtmodify = new DataTable();
+            DataTable dt = new DataTable();
             string sql = @"SELECT bd.BOOK_ID AS BookID,
                                   bd.BOOK_NAME AS BookName,
                                   CONVERT(char(10),bd.BOOK_BOUGHT_DATE,126) AS BookBoughtDate,
@@ -132,10 +132,27 @@ namespace BookSystemkendo.Models
                 SqlCommand cmd = new SqlCommand(sql, conn);
                 cmd.Parameters.Add(new SqlParameter("@BookID", BookID));
                 SqlDataAdapter sqlAdapter = new SqlDataAdapter(cmd);
-                sqlAdapter.Fill(dtmodify);
+                sqlAdapter.Fill(dt);
                 conn.Close();
             }
-            return MapBookDataToListForModify(dtmodify);
+            return MapEditData(dt);
+        }
+
+        private Models.BookData MapEditData(DataTable dt)
+        {
+            Models.BookData result = new Models.BookData();
+
+            result.BookID = (int)dt.Rows[0]["BookID"];
+            result.BookName = dt.Rows[0]["BookName"].ToString();
+            result.BookAuthor = dt.Rows[0]["BookAuthor"].ToString();
+            result.BookPublisher = dt.Rows[0]["BookPublisher"].ToString();
+            result.BookNote = dt.Rows[0]["BookNote"].ToString();
+            result.BookBoughtDate = dt.Rows[0]["BookBoughtDate"].ToString();
+            result.BookClassID = dt.Rows[0]["BookClassId"].ToString();
+            result.CodeID = dt.Rows[0]["CodeID"].ToString();
+            result.UserID = dt.Rows[0]["UserID"].ToString();
+
+            return result;
         }
 
         ///<summary>
