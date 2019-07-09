@@ -316,7 +316,7 @@ namespace BookSystemkendo.Models
         /// <param name="BookID"></param>
         public void DeleteBook(int BookID)
         {
-            try
+            try  //針對SQL 做try catch
             {
                 string sql = @"DELETE FROM BOOK_DATA WHERE BOOK_ID = @BookID AND BOOK_STATUS ='A'";
                 using (SqlConnection conn = new SqlConnection(this.GetDBConnectionString()))
@@ -326,7 +326,7 @@ namespace BookSystemkendo.Models
                     cmd.Parameters.Add(new SqlParameter("@BookID", BookID));
                     SqlTransaction Tran = conn.BeginTransaction();
                     cmd.Transaction = Tran;
-                    try
+                    try  //針對Transaction 做try catch
                     {
                         cmd.ExecuteNonQuery();
                         Tran.Commit();

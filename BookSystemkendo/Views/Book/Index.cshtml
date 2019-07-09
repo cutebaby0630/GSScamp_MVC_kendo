@@ -117,7 +117,7 @@
     </div>
 </div>
 
-    <script>
+<script>
 
     //kendoDropDownList
     $(function () {
@@ -172,7 +172,12 @@
         })
 
         // kendoGrid
+        var getgridcount = 0;
         $(".btn_search").click(function () {
+            if (getgridcount != 0) {
+                $("#search_grid").data('kendoGrid').destroy();
+            }
+            getgridcount++;
             var search_data = {
                 "BookName": $("#book_name").val(),
                 "ClassNameID": $("#dropdown_classname").data("kendoDropDownList").value(),
@@ -202,7 +207,6 @@
                     }
                 }
             })
-           // $("#search_grid").data("kendoGrid").destroy();
         });
     });
 
@@ -337,10 +341,10 @@
                 $("#ed_dropdown_codename").data("kendoDropDownList").value(data.CodeID);
                 $("#ed_dropdown_username").data("kendoDropDownList").value(data.UserID);
             }
-       
+
         })
         $("#update_window").data("kendoWindow").center().open();
     }
-    </script>
+</script>
 
 

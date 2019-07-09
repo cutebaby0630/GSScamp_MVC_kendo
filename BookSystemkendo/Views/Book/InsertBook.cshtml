@@ -91,43 +91,41 @@
             }
         });
 
-    });
-
-    //新增按鍵
-    $(".btn_create").click(function (e) {
-        var validator = $("#addBookForm").kendoValidator().data("kendoValidator");
-        if (validator.validate()) {
-            var create_data = {
-                "BookName": $("#book_name").val(),
-                "BookAuthor": $("#book_author").val(),
-                "BookPublisher": $("#book_publisher").val(),
-                "BookNote": $("#book_note").val(),
-                "BookBoughtDate": kendo.toString($("#bought_date").data("kendoDatePicker").value(), "yyyy-MM-dd"),
-                "BookClassID": $("#dropdown_classname").data("kendoDropDownList").value(),
-            }
-
-            $.ajax({
-                type: "POST",
-                url: "InsertBook",
-                data: create_data,
-                dataType: "json",
-                success: function (response) {
-                    if (response == true) {
-                        alert("圖書已新增");
-                        $("#book_name").val("");
-                        $("#book_author").val("");
-                        $("#book_publisher").val("");
-                        $("#book_note").val("");
-                        $("#dropdown_classname").data("kendoDropDownList").value("");
-                    }
-                },
-                error: function (error) {
-                    alert("系統發生錯誤");
+        //新增按鍵
+        $(".btn_create").click(function (e) {
+            var validator = $("#addBookForm").kendoValidator().data("kendoValidator");
+            if (validator.validate()) {
+                var create_data = {
+                    "BookName": $("#book_name").val(),
+                    "BookAuthor": $("#book_author").val(),
+                    "BookPublisher": $("#book_publisher").val(),
+                    "BookNote": $("#book_note").val(),
+                    "BookBoughtDate": kendo.toString($("#bought_date").data("kendoDatePicker").value(), "yyyy-MM-dd"),
+                    "BookClassID": $("#dropdown_classname").data("kendoDropDownList").value(),
                 }
-            });
-        }
-    })
 
+                $.ajax({
+                    type: "POST",
+                    url: "InsertBook",
+                    data: create_data,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response == true) {
+                            alert("圖書已新增");
+                            $("#book_name").val("");
+                            $("#book_author").val("");
+                            $("#book_publisher").val("");
+                            $("#book_note").val("");
+                            $("#dropdown_classname").data("kendoDropDownList").value("");
+                        }
+                    },
+                    error: function (error) {
+                        alert("系統發生錯誤");
+                    }
+                });
+            }
+        });
+    });
     //textarea 字數限制
     function WordsDeal() {
         var curLength = $("#book_note").val().length;
