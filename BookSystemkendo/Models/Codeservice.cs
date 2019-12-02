@@ -9,14 +9,14 @@ using System.Web.Mvc;
 namespace BookSystemkendo.Models
 {
     public class CodeService
-    { /// <summary>
-      /// 取得DB連線字串
-      /// </summary>
-      /// <returns></returns>
-        private string GetDBConnectionString()
-        {
-            return System.Configuration.ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString.ToString();
-        }
+        { /// <summary>
+          /// 取得DB連線字串
+          /// </summary>
+          /// <returns></returns>
+            private string GetDBConnectionString()
+            {
+                return System.Configuration.ConfigurationManager.ConnectionStrings["DBConn"].ConnectionString.ToString();
+            }
 
         /// <summary>
         /// 取得圖書類別

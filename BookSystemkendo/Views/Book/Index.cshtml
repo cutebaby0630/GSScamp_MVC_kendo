@@ -1,11 +1,11 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
 <h2 style="font-family:Microsoft JhengHei;">圖書維護</h2>
 
 <div class="form-horizontal">
+    <!--margin-top 跟上面的間距 margin-bottom 跟下面的間距-->
     <div class="form-group" style="margin-bottom:20px;margin-top:20px">
         <label class="col-md-2 control-label">書名</label>
         <div class="col-md-10">
@@ -118,7 +118,6 @@
 </div>
 
 <script>
-
     //kendoDropDownList
     $(function () {
         $("#record_window").kendoWindow({
@@ -128,6 +127,7 @@
             modal: true,
             action: ["Close"]
         });
+ 
         $("#dropdown_classname").kendoDropDownList({
             dataTextField: "Text",
             dataValueField: "Value",
@@ -170,7 +170,6 @@
                 }
             }
         })
-
         // kendoGrid
         var getgridcount = 0;
         $(".btn_search").click(function () {
@@ -209,7 +208,6 @@
             })
         });
     });
-
     // 刪除書本
     function deleteBook(e) {
         var Check = confirm('確定是否刪除這筆紀錄?');
@@ -229,7 +227,6 @@
                         if (response == true) {
                             alert("圖書已刪除");
                             $("#search_grid").data("kendoGrid").dataSource.read();
-
                         }
                     },
                     error: function (error) {
@@ -237,11 +234,8 @@
                     }
                 });
             }
-
         }
     }
-
-
     //借閱紀錄
     function booklendrecord(e) {
         e.preventDefault();
@@ -268,7 +262,6 @@
         });
         $('#record_window').data("kendoWindow").center().open();
     }
-
     //修改data
     function updatebook(e) {
         $("#update_window").kendoWindow({
@@ -341,10 +334,7 @@
                 $("#ed_dropdown_codename").data("kendoDropDownList").value(data.CodeID);
                 $("#ed_dropdown_username").data("kendoDropDownList").value(data.UserID);
             }
-
         })
         $("#update_window").data("kendoWindow").center().open();
     }
 </script>
-
-
