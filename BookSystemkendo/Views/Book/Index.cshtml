@@ -325,6 +325,7 @@
             data: { "BookID": bookId },
             dataType: "json",
             success: function (data) {
+                debugger
                 $("#ed_book_name").val(data.BookName);
                 $("#ed_book_author").val(data.BookAuthor);
                 $("#ed_book_publisher").val(data.BookPublisher);

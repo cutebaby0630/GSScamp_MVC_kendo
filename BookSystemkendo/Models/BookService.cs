@@ -93,7 +93,7 @@ namespace BookSystemkendo.Models
                 {
                     BookID = Convert.ToInt32(cmd.ExecuteScalar());
                     Tran.Commit();
-                }
+                }   
                 catch (Exception)
                 {
                     Tran.Rollback();
