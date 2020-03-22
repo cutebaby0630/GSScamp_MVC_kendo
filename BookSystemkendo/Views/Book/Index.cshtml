@@ -111,7 +111,7 @@
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" class="btn" value="存檔" style="background-color: #99b2db; color:#194284" />
-                <input type="button" class="btn" id="delete" value="刪除" href="#" style="background-color: #99b2db; color:#194284">
+                <input type="button" class="btn" id="delete_edit_btn" value="刪除" href="#" style="background-color: #99b2db; color:#194284">
             </div>
         </div>
     </div>
@@ -208,6 +208,8 @@
             })
         });
     });
+    
+
     // 刪除書本
     function deleteBook(e) {
         var Check = confirm('確定是否刪除這筆紀錄?');
@@ -264,6 +266,30 @@
     }
     //修改data
     function updatebook(e) {
+        
+        //todo修改 刪除書本
+        $("#delete_edit_btn").unbind('click');
+        $("#delete_edit_btn").click(function () {
+            if (book.BookStatus == "已借出" || book.BookStatus == "已借出(未領)") {
+                alert("該本書借出中無法刪除!");
+            } else if (confirm("確定嗎??") == true) {
+                $.ajax({
+                    type: "POST",
+                    url: "DeleteBook",
+                    data: { "BookID": bookId },
+                    dataType: "json",
+                }).done(function (e) {
+                    if (e == true) {
+                        $("#book_grid").data("kendoGrid").dataSource.read();
+                        $("#edit_window").data("kendoWindow").close();
+                    }
+
+                })
+                alert("delete success");
+
+            } 
+            return false;
+        });
         $("#update_window").kendoWindow({
             title: "資料修改",
             width: "50%",
@@ -271,7 +297,7 @@
             modal: true,
             action: ["Close"]
         });
-        $("#ed_dropdown_username").kendoDropDownList({
+         $("#ed_dropdown_username").kendoDropDownList({
             dataTextField: "Text",
             dataValueField: "Value",
             optionLabel: "請選擇",
@@ -316,9 +342,10 @@
         $("#ed_bought_date").kendoDatePicker({
             value: new Date(),
             format: "yyyy/MM/dd"
-        });
+        }); 
         e.preventDefault;
         var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID;
+        var book = this.dataItem($(e.currentTarget).closest("tr"));
         $.ajax({
             type: "POST",
             url: "GetBookData",
@@ -338,4 +365,7 @@
         })
         $("#update_window").data("kendoWindow").center().open();
     }
+
+    
+    
 </script>

@@ -85,5 +85,6 @@ namespace BookSystemkendo.Controllers
         {
             return Json(this.bookService.GetBookLendRecord(BookID));
         }
+        
     }
 }
