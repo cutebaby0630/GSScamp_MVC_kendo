@@ -347,7 +347,7 @@
         var bookId = this.dataItem($(e.currentTarget).closest("tr")).BookID;
         var book = this.dataItem($(e.currentTarget).closest("tr"));
         $.ajax({
-            type: "POST",
+            type: "POST", 
             url: "GetBookData",
             data: { "BookID": bookId },
             dataType: "json",
